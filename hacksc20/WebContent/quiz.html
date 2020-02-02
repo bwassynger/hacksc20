@@ -8,7 +8,7 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
 
-	<link href="css/styles.css" rel="stylesheet">
+	<link href="styles.css" rel="stylesheet">
 
 	<style>
 		#quizHeader{
@@ -18,36 +18,38 @@
 			font-family: 'Courgette', cursive;
 		}
 
-		.question {
+		.questionBox {
 			margin-top: 40px;
 			text-align: center;
 			background-color: lightblue;
-			padding-top: 200px;
-			padding-bottom: 200px;
+			padding-top: 100px;
+			padding-bottom: 100px;
+			box-shadow: 0px 0px 2px 2px;
+		}
+
+		#next {
+			position: relative;
+			z-index: 101;
+			border-radius: 5px;
+			background-color: #014268;
+			color: white;
+			margin-top: 10px;
+			padding: 10px;
+		}
+
+		#myQuestion {
+			position: relative;
+			z-index: 101;
+
+		}
+
+		.choices {
+			font-size: 20px;
+			position: relative;
+			z-index: 101;
 		}
 
 	</style>
-	<script>
-	
-		var questions = [
-			"Do you own a car or a motorcycle?",
-			"How's the mileage (combined city/highway mpg)?",
-			"How much do you drive per year?",
-			"Are you vegan or vegetarian?",
-			"How much red meat do you eat (ounces per week)?",
-			"How much do you spend on electricity ($/year)?",
-			"Water?"
-		]
-		
-		var qNum = 1
-		function next() {
-			
-		}
-		
-		function prev() {
-			
-		}
-	</script>
 
 </head>
 	<body>
@@ -65,10 +67,10 @@
 		        <a class="nav-link" href="results.html">Map</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Profile</a>
+		        <a class="nav-link" href="profile.html">Profile</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Our Story</a>
+		        <a class="nav-link" href="aboutus.html">Our Story</a>
 		      </li>
 		    </ul>
 		  </div>
@@ -80,30 +82,93 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-3"></div>
-				<div class="col question col-6">
-					<div>
-						Question 1
+				<div class="col col-6 questionBox">
+					<h3 class="question" id="myQuestion"></h3>
+					<div class="choices">
+						<input type="radio" name="answer" value = "1" id="question1" checked="checked"><span>Choice 1</span><br>
+						<input type="radio" name = "answer" value = "2" id="question2"><span>Choice 2</span><br>
+						<input type="radio" name = "answer" value = "3" id="question3"><span>Choice 3</span><br>
+						<input type="radio" name = "answer" value = "4" id="question4"><span>Choice 4</span><br>
 					</div>
-					<div>
-						Test
-					</div>
-					<div class="buttons">
-						<button id="prevButton">Previous</button>
-						<button id="nextButton">Next</button>
-					</div>
+					<button id="next">Next Question</button>
 				</div>
+
 				<div class="col-3"></div>
 
 			</div>
 		</div>
+
 		<script>
-			document.getElementById("prevButton").addEventListener("click", function(){
-				previous();
+			var questions = [
+				"How do you get to work?",
+				"How's the mileage of your car (combined city/highway mpg)?",
+				"How much do you drive per year?",
+				"What is your diet?",
+				"What are your trash habits?",
+				"How much do you spend on electricity ($/month)?",
+				"What are your bathing habits most like (adjust for how often you shower)?"
+			]
+
+			var answers = [
+				"Car", "Car Pool", "Public Transit", "Bike/Walk",
+				"less than 20", "20-32", "32-40", "40+",
+				"less than 5000 miles", "10,000 miles", "15,000 miles", "20,000+ miles",
+				"I eat meat often", "I sometimes eat meat", "I am vegetarian", "I am vegan",
+				"I rarely recycle", "I sometimes recycle", "I usually recycle", "I recycle and compost",
+				"less than 60", "60-85", "85-100", "100+",
+				"I take baths at least once a week", "I take showers over 10 minutes most days", "I take showers 5-10 minutes most days", "I take showers less than 5 minutes most days"
+			]
+
+			var qNum = 0;
+			var score = 0;
+
+			function displayQuestion(){
+				document.querySelector(".question").innerHTML = questions[qNum];
+				document.querySelector("#question1").nextSibling.innerHTML = answers[qNum*4];
+				document.querySelector("#question2").nextSibling.innerHTML = answers[qNum*4+1];
+				document.querySelector("#question3").nextSibling.innerHTML = answers[qNum*4+2];
+				document.querySelector("#question4").nextSibling.innerHTML = answers[qNum*4+3];
+				document.querySelector("#question1").checked = true;
+
+			}
+
+			function displayResult(){
+				document.querySelector(".question").innerHTML = "Your environmental index is " + score;
+
+				document.querySelector(".choices").style.display = "none";
+				document.querySelector("#next").style.display = "none";
+				//send to database and stuffs
+			}
+
+			document.getElementById("next").addEventListener("click", function(){
+				if(qNum < 6){
+					//ADD THEIR ANSWER TO THE SCORE AND RESET THE QUESTIONS
+					if(document.getElementById("question1").checked){
+						score = score;
+					}else if(document.getElementById("question2").checked){
+						score = score + 2;
+					}else if(document.getElementById("question3").checked){
+						score = score + 4;
+					}else{
+						score = score + 6;
+					}
+					qNum++;
+					console.log("button pressed");
+					displayQuestion();
+				}else{
+					//add to score first
+					displayResult();
+				}
 			});
 
-			document.getElementById("nextButton").addEventListener("click", function(){
-				next();
-			});
+			displayQuestion();
+
+
+
 		</script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 	</body>
 	</html>
