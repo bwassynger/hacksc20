@@ -25,7 +25,9 @@ html, body{
 }
 
 .navbar-light { 
+	z-index: 101;
 	background-color: #014268 !important;
+	/*box-shadow: 0 0 10px 2px #014268;*/
 }
 
 .navbar-light .navbar-brand{
@@ -44,6 +46,7 @@ html, body{
 
 .display-2 {
 	color: #014268;
+	text-shadow: 0 0 8px blackf;
 }
 
 #header {
@@ -96,7 +99,36 @@ html, body{
 	font-size: 25px;
 }
 
+#quizHeader{
+	text-align: center;
+	margin-top: 25px;
+	color: #014268;
+	font-family: 'Courgette', cursive;
+}
 
+.question {
+	margin-top: 40px;
+	text-align: center;
+	background-color: white;
+	padding-top: 200px;
+	padding-bottom: 200px;
+	box-shadow: 0 0 10px 2px #014268;
+}
 
+.submit-btn {
+	margin-top: 20px;
+}
+
+.userForm {
+	margin-bottom: 10px;
+}
+
+#login {
+	float: right;
+}
+
+input[type=radio] {
+	margin-right: 15px;
+}
 
 

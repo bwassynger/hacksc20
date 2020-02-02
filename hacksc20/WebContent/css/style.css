@@ -1,0 +1,66 @@
+html, body {
+    margin: 0;
+    font-family: Arial;
+    height: 100%;
+}
+
+#header {
+    height: auto;
+    padding-left: 5%;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+    margin: 10px;
+}
+
+#book-form {
+    background-image: url("images/background.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 15% 5%;
+    color: lightgrey;
+}
+
+input[name="search_text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    border-radius: 6px;
+}
+
+.filter {
+    display:inline-block;
+    width: 48%;
+    margin: 10px;
+}
+
+#submit-button {
+    float: right;
+    padding: 12px 20px;
+    border-radius: 6px;
+    color: white;
+    background-color: dimgrey;
+}
+
+h3 {
+    font-size: 3rem;
+    font-style: normal;
+}
+
+#headerButtons {
+	float: right;
+	margin: 40px;
+	color: darkgrey;
+}
+
+a {
+	color: darkgrey;
+	text-decoration: none;
+}
+
+#rightHeaderButton {
+	margin-left: 20px;
+}
